@@ -1,5 +1,6 @@
 package com.Entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class SubCategoryEntity {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "categoryId",referencedColumnName = "categoryId")
+	@JoinColumn(name = "categoryid",referencedColumnName = "categoryId")
 	CategoryEntity category;
 	
 	public Integer getSubcategoryId() {

@@ -1,9 +1,11 @@
 package com.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,7 @@ import com.Entity.SubCategoryEntity;
 import com.Repository.CategoryRepository;
 import com.Repository.SubCategoryRepository;
 
+@CrossOrigin
 @RestController
 public class SubCategoryController {
 
@@ -24,28 +27,30 @@ public class SubCategoryController {
 	@Autowired
 	SubCategoryRepository subcrepo;
 
-	@PostMapping("/addsubcategory")
+	@PostMapping("/subcategory")
 	public ResponseEntity<ResponseBean<SubCategoryEntity>> addsubcategory(@RequestBody SubCategoryEntity subcategory) 
 	{
-		CategoryEntity cat = crepo.findByCname(subcategory.getCategory().getCname()).get();
-		SubCategoryEntity subcat = subcrepo.findBySubcname(subcategory.getSubcname());
+		CategoryEntity cat = crepo.findByCname(subcategory.getCategory().getCname());
+//		Optional<SubCategoryEntity> subcat = subcrepo.findBySubcnameAndCategory(subcategory.getSubcname(),subcategory.getCategory().getCategoryId());
+		SubCategoryEntity subcat= subcrepo.findBySubcname(subcategory.getSubcname());
+//		CategoryEntity cat2=crepo.findByCname(subcategory.getCategory().getCname());
+		
 		
 		ResponseBean<SubCategoryEntity> res = new ResponseBean<>();
-		
 		if (cat == null) {
 			subcrepo.save(subcategory);
 			res.setData(subcategory);
-			res.setMsg("SubCategory added successfully!");
+			res.setMsg("SubCategory added successfully1!");
 			return ResponseEntity.ok(res);
 		} 
 		else {
 			
-			if (subcat == null) {
+			if (subcat==null) {
 				
 				subcategory.getCategory().setCategoryId(cat.getCategoryId());
 				subcrepo.save(subcategory);
 				res.setData(subcategory);
-				res.setMsg("SubCategory added successfully!");
+				res.setMsg("SubCategory added successfully2!");
 				return ResponseEntity.ok(res);
 			} else {
 				res.setData(subcategory);

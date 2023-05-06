@@ -2,6 +2,7 @@ package com.Repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface SubCategoryRepository extends CrudRepository<SubCategoryEntity,
 
 	SubCategoryEntity findBySubcname(String subcName);
     List<SubCategoryEntity> findAll();
+	Optional<SubCategoryEntity> findBySubcnameAndCategory(String subcname, Integer cn);
+	
 }

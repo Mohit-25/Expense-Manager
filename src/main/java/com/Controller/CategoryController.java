@@ -58,14 +58,14 @@ public class CategoryController {
 	{
 		 
 		  Optional<UserEntity> userexist= userrepo.findById(category.getUsercat().getId());
-//		  Optional<CategoryEntity> catexist=crepo.findByCnameAndUserid(category.getCname(),category.getUsercat().getId());
-		  Optional<CategoryEntity> catexist=crepo.findByCname(category.getCname());
+		  CategoryEntity catexist=crepo.findByCnameAndUsercatId(category.getCname(),category.getUsercat().getId());
+//		  CategoryEntity catexist=crepo.findByCname(category.getCname());
 		  ResponseBean<CategoryEntity> res=new ResponseBean<>();
 		  if(userexist.isPresent())  
 		  {
-			  if(catexist.isPresent())
+			  if(catexist!=null)
 			  {
-				  res.setData(category);
+				  res.setData(catexist);
 				  res.setMsg("Category Already exist!");
 				  return ResponseEntity.unprocessableEntity().body(res);
 			  }
@@ -73,7 +73,7 @@ public class CategoryController {
 			  {
 				  category.getUsercat().setId(userexist.get().getId()); 
 				  crepo.save(category);
-				  res.setData(category);
+				  res.setData(catexist);
 				  res.setMsg("Category added successfully!");
 				  return ResponseEntity.ok(res);
 			  }

@@ -13,7 +13,7 @@ import com.Entity.VendorEntity;
 public interface CategoryRepository extends CrudRepository<CategoryEntity, Integer> {
 
 	List<CategoryEntity> findAll();
-	Optional<CategoryEntity> findByCname(String getcName);
-//	Optional<CategoryEntity> findByCnameAndUserid(String cname,Integer userid);
+	CategoryEntity findByCname(String getcName);
+	CategoryEntity findByCnameAndUsercatId(String cname,Integer userid);
 //    Optional<CategoryEntity> findByVname(Integer id);
 }
