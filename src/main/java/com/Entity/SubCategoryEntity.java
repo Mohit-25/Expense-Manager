@@ -44,6 +44,12 @@ public class SubCategoryEntity {
 	public void setSubcname(String subcname) {
 		this.subcname = subcname;
 	}
+	public SubCategoryEntity(Integer subcategoryId, String subcname, CategoryEntity category) {
+		super();
+		this.subcategoryId = subcategoryId;
+		this.subcname = subcname;
+		this.category = category;
+	}
 	
 	
 	

@@ -6,12 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Bean.ResponseBean;
+import com.Entity.CategoryEntity;
 import com.Entity.UserEntity;
 import com.Entity.VendorEntity;
 import com.Repository.UserRepository;
@@ -26,6 +29,21 @@ public class VendorController {
 	
 	@Autowired
 	UserRepository userrepo;
+	
+	@GetMapping("/vendor/{id}")
+	public ResponseEntity<ResponseBean<List<VendorEntity>>> getVendorbyuserid(@PathVariable("id")Integer id)
+	{
+		  ResponseBean<List<VendorEntity>>res=new ResponseBean<>();
+		  
+		  List<VendorEntity> list=vrepo.findByUserId(id);
+		  
+		  res.setData(list);
+		  res.setMsg("Vendor fetch successfully!");
+		  
+		  return ResponseEntity.ok(res);
+		
+	   
+	}
 	
 	@PostMapping("/vendor")
 	public ResponseEntity<ResponseBean<VendorEntity>> addvendor(@RequestBody VendorEntity vendor)
@@ -78,6 +96,32 @@ public class VendorController {
 		  
 	  }
 	
+	}
+	
+	@DeleteMapping("/vendor/{id}")
+	public ResponseEntity<ResponseBean<VendorEntity>> deletevendor(@PathVariable("id") Integer id)
+	{
+		ResponseBean<VendorEntity>res=new ResponseBean<>();
+
+		Optional<VendorEntity> vendor=vrepo.findById(id);
+		
+		if(vendor.isPresent())
+		{
+			
+			res.setData(vendor.get());
+			res.setMsg("Vendor deleted!");
+			vrepo.deleteById(id);
+
+			return ResponseEntity.ok(res);
+		}
+		else
+		{
+			res.setData(vendor.get());
+			res.setMsg("Vendor Not Exist!");
+			return ResponseEntity.unprocessableEntity().body(res);
+
+		}
+		
 	}
 
 	

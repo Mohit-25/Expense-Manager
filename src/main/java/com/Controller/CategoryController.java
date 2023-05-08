@@ -51,6 +51,45 @@ public class CategoryController {
 	   
 	}
 	
+	@GetMapping("/category/{id}")
+	public ResponseEntity<ResponseBean<List<CategoryEntity>>> getCategorybyuserid(@PathVariable("id")Integer id)
+	{
+		  ResponseBean<List<CategoryEntity>>res=new ResponseBean<>();
+		  
+		  List<CategoryEntity> list=crepo.findByUsercatId(id);
+		  
+		  res.setData(list);
+		  res.setMsg("Category fetch successfully!");
+		  
+		  return ResponseEntity.ok(res);
+		
+	   
+	}
+	
+	@PostMapping("/findcategory")
+	public ResponseEntity<ResponseBean<CategoryEntity>> findCategory(@RequestBody CategoryEntity category)
+	{
+		  ResponseBean<CategoryEntity>res=new ResponseBean<>();
+		  CategoryEntity catexist=crepo.findByCnameAndUsercatId(category.getCname(),category.getUsercat().getId());
+
+		  if(catexist==null)
+		  {
+			  res.setData(catexist);
+			  res.setMsg("Category not found!");
+			  return ResponseEntity.unprocessableEntity().body(res);
+          }
+		  else
+		  {
+			  res.setData(catexist);
+			  res.setMsg("Category fetch successfully!");
+			  return ResponseEntity.ok(res);			  
+		  }
+		  
+		  
+		
+	   
+	}
+	
 	
 	
 	@PostMapping("/category")

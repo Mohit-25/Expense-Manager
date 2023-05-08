@@ -14,5 +14,7 @@ public interface VendorRepository extends CrudRepository<VendorEntity, Integer>{
 	List<VendorEntity> findAll();
 
 	Optional<VendorEntity> findByUserIdAndVname(Integer id,String name);
+
+	List<VendorEntity> findByUserId(Integer id);
 	 
 }

@@ -16,4 +16,5 @@ public interface CategoryRepository extends CrudRepository<CategoryEntity, Integ
 	CategoryEntity findByCname(String getcName);
 	CategoryEntity findByCnameAndUsercatId(String cname,Integer userid);
 //    Optional<CategoryEntity> findByVname(Integer id);
+	List<CategoryEntity> findByUsercatId(Integer id);
 }
