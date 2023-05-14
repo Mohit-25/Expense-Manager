@@ -21,10 +21,10 @@ public interface SubCategoryRepository extends CrudRepository<SubCategoryEntity,
 	
     SubCategoryEntity findBySubcnameAndCategoryCategoryId(String subcname,Integer categoryId);
 	
-    @Query(nativeQuery = true, value = "select s.subcname from subcategory s,category c where c.categoryid=s.categoryid and c.userid=3")
-//	@Query(nativeQuery = true, value = "SELECT s.subcname FROM user_table u "+
-//                                        "JOIN category c ON u.id = c.userid "+
-//                                        "JOIN subcategory s ON c.category_id = s.categoryid "+
-//                                        "WHERE u.id =:id ")
-	List<SubCategoryEntity> getsubcategorbyid(@Param("id") int id);
+//    @Query(nativeQuery = true, value = "select s.subcname from subCategory s,Category c where c.category_id=s.categoryid and c.userid=:id")
+	@Query(nativeQuery = true, value = "SELECT s.* FROM user_table u "+
+                                        "JOIN category c ON u.id = c.userid "+
+                                        "JOIN Subcategory s ON c.category_id = s.categoryid "+
+                                        "WHERE u.id =:id ")
+	List<SubCategoryEntity> scategory(@Param("id") int id);
 }

@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<SubCategoryEntity> searchCriteria(Integer id) {
+		public List<SubCategoryEntity> searchCriteria(Integer id) {
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<SubCategoryEntity> query = builder.createQuery(SubCategoryEntity.class);

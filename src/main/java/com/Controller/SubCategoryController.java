@@ -96,7 +96,7 @@ public class SubCategoryController {
 	{
 		  ResponseBean<List<SubCategoryEntity>>res=new ResponseBean<>();
 		  
-         List<SubCategoryEntity> list= subcrepo.getsubcategorbyid(id);		
+         List<SubCategoryEntity> list= subcrepo.scategory(id);		
 //		  List<SubCategoryEntity> list =ud.searchCriteria(id);
 		  
 		  res.setData(list);
